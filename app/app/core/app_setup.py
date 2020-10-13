@@ -1,10 +1,17 @@
-from ..api import api  # noqa
+from ..api import api
 from ..main import app
 from flask import Flask, render_template, request, redirect
+from prometheus_flask_exporter import PrometheusMetrics
+
+
+metrics = PrometheusMetrics(app)
+
+
+metrics.info('app_info', 'Application info', version='1.0.3')
 
 
 @app.route("/")
-def main():
+def root():
     return render_template('base.html')
 
 
